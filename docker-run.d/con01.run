@@ -1,0 +1,5 @@
+#!/bin/sh
+docker run -d --name con01 \
+-v /root/docker/volumns/test:/opt/share \
+linux-oracle /bin/sh /opt/share/hello/hello.sh
+
