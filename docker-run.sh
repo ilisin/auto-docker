@@ -162,25 +162,23 @@ deploy_check(){
     exit 0
   else
     if [ ! -f "$p_package" ];then
-      echo "the package $p_package not exist!"
-      exit 0
-    fi 
-    filetype=`echo $p_package | awk -F. '{print $NF}'`
-	  filename=`echo $p_package | awk -F/ '{print $NF}'`
-    if [ "$filetype" != "zip" ];then
-      echo "not zip file"
-      exit 0
-	  fi
-    if [ -d "$dtemp_dir" ];then
-      rm -rf "$dtemp_dir"
-    fi
-    mkdir -p "$dtemp_dir"
+      filetype=`echo $p_package | awk -F. '{print $NF}'`
+	    filename=`echo $p_package | awk -F/ '{print $NF}'`
+      if [ "$filetype" == "zip" ];then
+        if [ -d "$dtemp_dir" ];then
+          rm -rf "$dtemp_dir"
+        fi
+        mkdir -p "$dtemp_dir"
 
-    cp -rf "$p_package" "$dtemp_dir/"
-    crt=$PWD
-    cd "$dtemp_dir" 
-    unzip $filename
-    cd $crt
+        cp -rf "$p_package" "$dtemp_dir/"
+        crt=$PWD
+        cd "$dtemp_dir" 
+        unzip $filename
+        cd $crt
+	    fi
+#      echo "the package $p_package not exist!"
+#      exit 0
+    fi 
   fi
 }
 
