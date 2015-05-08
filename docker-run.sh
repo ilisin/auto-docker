@@ -80,8 +80,16 @@ check_container(){
   fi
 }
 
+after_start_hook(){
+    as_hook=$dir_conf/$p_cn.after.hook.sh
+    if [ -f $as_hook ];then
+        $as_hook
+    fi
+}
+
 run_container(){
   $dir_conf/$p_cn.run
+  after_start_hook
 }
 
 start_container(){
@@ -95,6 +103,7 @@ start_container(){
   then
     echo "starting $p_cn"
     docker start $p_cn
+    after_start_hook
   else
     echo "container $p_cn is running,skip"
   fi
@@ -141,9 +150,11 @@ restart_container(){
   then
     echo "container $p_cn is not running,start it"
     docker start $p_cn
+    after_start_hook
   else
     echo "restarting $p_cn"
     docker restart $p_cn
+    after_start_hook
   fi
 }
 
