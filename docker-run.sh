@@ -167,11 +167,7 @@ restart_all(){
 }
 
 deploy_check(){
-  if [ "$p_package" == "" ]
-  then
-    echo "please append the package name" 
-    exit 0
-  else
+  if [ "$p_package" != "" ];then
     if [ ! -f "$p_package" ];then
       filetype=`echo $p_package | awk -F. '{print $NF}'`
 	    filename=`echo $p_package | awk -F/ '{print $NF}'`
